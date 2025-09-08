@@ -6,7 +6,8 @@ import {
   ActionIcon,
 } from "@mantine/core";
 import { useMediaQuery } from "@mantine/hooks";
-import { IconSun, IconMoon } from "@tabler/icons-react";
+import { IconSun, IconMoon, IconBusinessplan } from "@tabler/icons-react";
+import { Flex } from "@mantine/core";
 
 interface HeaderComponentProps {
   opened: boolean;
@@ -17,12 +18,11 @@ export default function HeaderComponent({
   opened,
   toggle,
 }: HeaderComponentProps) {
-
   const { colorScheme, toggleColorScheme } = useMantineColorScheme();
-  
+
   const isDark = colorScheme === "dark";
   const isMobile = useMediaQuery("(max-width: 768px)");
-  
+
   return (
     <Group p="md" justify="space-between">
       <Group>
@@ -33,14 +33,24 @@ export default function HeaderComponent({
             aria-label="Toggle navigation"
           />
         )}
-        <Text
-          size="xl"
-          fw={900}
-          variant="gradient"
-          gradient={{ from: "red", to: "blue", deg: 90 }}
+        <Flex
+          mih={50}
+          gap="xl"
+          justify="flex-start"
+          align="flex-start"
+          direction="row"
+          wrap="wrap"
         >
-          TRACKER-APP
-        </Text>
+          <Text
+            size="xl"
+            fw={900}
+            variant="gradient"
+            gradient={{ from: "red", to: "blue", deg: 90 }}
+          >
+            TRACKER-APP
+          </Text>
+          <IconBusinessplan size={30} color={isDark? "yellow":"violet"} />
+        </Flex>
       </Group>
       <Group gap={5}>
         <ActionIcon

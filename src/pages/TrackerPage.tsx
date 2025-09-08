@@ -1,12 +1,13 @@
 import { useState } from "react";
 import { Button, Stack, Title, Divider, Container } from "@mantine/core";
 import { v4 as uuidv4 } from "uuid";
+import AddExpenseModal from "../components/Modal";
 
 type Expense = {
   id: string;
   name: string;
   amount: number | string;
-  category: string;
+  category: string | null;
 };
 
 export default function ExpenseTracker() {
@@ -14,13 +15,32 @@ export default function ExpenseTracker() {
   const [expenses, setExpenses] = useState<Expense[]>([]);
   const categories = ["Food", "Transport", "Entertainment"];
 
+  const setExpense = (
+    name: string,
+    amount: number | string,
+    category: string | null,
+  ) => {
+    const newExpenses: Expense = {
+      id: uuidv4(),
+      name,
+      amount,
+      category,
+    };
+    setExpenses((prev) => [...prev, newExpenses]);
+  };
+
   return (
     <Container style={{ maxWidth: 600, margin: "auto", padding: 20 }}>
       <Title order={2} mb="md">
         Expense Tracker
       </Title>
-      <Button>Add Expense Item</Button>
+      <Button onClick={() => setOpened(true)}>Add Expense Item</Button>
       {/* Type additional AddExpenseModal here. */}
+      <AddExpenseModal
+        opened={opened}
+        onClose={() => setOpened(false)}
+        onAdd={setExpense}
+      />
 
       <Divider my="md" />
       {/* Type additional total cost here. */}
